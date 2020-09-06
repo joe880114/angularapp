@@ -1,0 +1,22 @@
+#creating the image 
+FROM node:alpine as builder
+
+#work directory
+WORKDIR '/app'
+
+#copy dependency 
+COPY package.json .
+
+#run npm 
+RUN npm install 
+#RUN npm install -g @angular/cli
+
+#copy all files  
+COPY . .
+
+#start command 
+RUN npm run build
+
+FROM nginx
+
+COPY --from=builder /app/dist/emptyapp /usr/share/nginx/html

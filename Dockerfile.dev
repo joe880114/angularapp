@@ -1,0 +1,19 @@
+#creating the image 
+FROM node
+
+#work directory
+WORKDIR 'urs/app'
+
+#copy dependency 
+COPY package.json .
+
+#run npm 
+RUN npm install 
+RUN npm install -g @angular/cli
+
+#copy all files  
+COPY . .
+
+
+#start command 
+CMD ng serve --host 0.0.0.0
